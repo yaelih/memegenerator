@@ -5,8 +5,8 @@ function onTextUpdate(value){
 }
 
 function onAdd(){
+    document.querySelector('[name="text"]').value ='';
     increaseLineIdx();
-    document.querySelector('[name="text"').value ='';
 }
 
 function onUpdateFontSize(diff){
@@ -17,16 +17,22 @@ function onAlignFont(value) {
     updateFontAlignment(value);
 }
 
+function onUpdateFont(value){
+    updateFontFamily(value);
+}
+
 function onMove(diff){
     updatePositionY(diff);
 }
 
 function onSwitchLine(){
-    switchLine();
+    var text  = switchLine() || '';
+    document.querySelector('[name="text"]').value = text;
 }
 
 function onDelete(){
-    deleteLine();
+    var text = deleteLine() || ''
+    document.querySelector('[name="text"]').value = text;
 }
 
 function onSetStrokeColor(value) {
@@ -42,7 +48,6 @@ function renderGrid(){
     var strHTMLs = imgs.map(img => {
         return `<img src=${img} onclick="onSelection('${img}')" />`;
     })
-    console.log(strHTMLs)
     document.querySelector('.gallery-grid').innerHTML = strHTMLs.join('');
 }
 
@@ -50,4 +55,14 @@ function onSelection(imgUrl){
     document.querySelector('.temp-div-gallery').classList.add('hide');
     setSelectedMemeToEditor(imgUrl);
     document.querySelector('.temp-div-editor').classList.remove('hide');
+}
+
+function download(elLink) {
+    downloadCanvas(elLink);
+}
+
+function onGallery(){
+    document.querySelector('.temp-div-editor').classList.add('hide');
+    document.querySelector('[name="text"]').value ='';
+    document.querySelector('.temp-div-gallery').classList.remove('hide');
 }

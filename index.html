@@ -14,7 +14,7 @@
         <img class="logo" src="img/LOGO.png" />
         <nav>
             <ul class="clean-list flex">
-                <li>Gallery</li>
+                <li class="active" onclick="onGallery()">Gallery</li>
                 <li>About</li>
             </ul>
         </nav>
@@ -42,35 +42,49 @@
                         Update your browser to enjoy my amazing meme generator
                     </canvas>
                 </div>
-                <div class="toolbox-container">
+                <div class="toolbox-container flex column align-center">
                     <div class="text-line">
                         <input type="text" name="text" oninput="onTextUpdate(this.value)" autocomplete="off">
                     </div>
-                    <div class="basic-btns">
-                        <button onclick="onMove(-10)">Up</button>
-                        <button onclick="onMove(10)">Down</button>
-                        <button onclick="onSwitchLine()">Switch</button>
-                        <button onclick="onAdd()">Add</button>
-                        <button onclick="onDelete()">Delete</button>
+                    <div class="basic-btns flex">
+                        <button onclick="onMove(-10)" class="axis-y"><img src="img/up.png" /></button>
+                        <button onclick="onMove(10)" class="axis-y"><img src="img/down.png" /></button>
+                        <button onclick="onSwitchLine()" class="switch flex align-center"><img src="img/up.png" /><img src="img/down.png" /></button>
+                        <button onclick="onAdd()" class="add"><img src="img/add.png" /></button>
+                        <button onclick="onDelete()" class="delete"><img src="img/delete.png" /></button>
                     </div>
-                    <div class="style-btns">
-                        <button onclick="onUpdateFontSize(5)">Bigger</button>
-                        <button onclick="onUpdateFontSize(-5)">Smaller</button>
-                        <button onclick="onAlignFont('left')">Left</button>
-                        <button onclick="onAlignFont('center')">Center</button>
-                        <button onclick="onAlignFont('right')">Right</button>
-                        <button>Font family</button>
-                        <input type="color" name="stroke" oninput="onSetStrokeColor(this.value)" value="#000000">Stroke
-                        <input type="color" name="color" oninput="onSetFillColor(this.value)" value="#ffffff">Color
+                    <div class="style-btns grid">
+                        <button onclick="onUpdateFontSize(5)"><img src="img/A+.png" /></button>
+                        <button onclick="onUpdateFontSize(-5)"><img src="img/A-.png" /></button>
+                        <button onclick="onAlignFont('left')"><img src="img/left.png" /></button>
+                        <button onclick="onAlignFont('center')"><img src="img/center.png" /></button>
+                        <button onclick="onAlignFont('right')"><img src="img/right.png" /></button>
+                        <select id="font-family" oninput="onUpdateFont(this.value)">
+                            <option value="Arial">Arial</option>
+                            <option value="Assistant">Assistant</option>
+                            <option value="Impact" selected>Impact</option>
+                            <option value="Rubik">Rubik</option>
+                            <option value="VarelaRound">VarelaRound</option>
+                        </select>
+                        <button><input type="color" name="stroke" oninput="onSetStrokeColor(this.value)" value="#000000"></button>
+                        <input type="color" name="color" oninput="onSetFillColor(this.value)" value="#ffffff">
                     </div>
                     <div class="stickers"></div>
-                    <div class="advanced-btns"></div>
+                    <div class="advanced-btns">
+                        <!-- <form action="" method="POST" enctype="multipart/form-data" onsubmit="uploadImg(this, event)">
+                            <input name="img" id="imgData" type="hidden" />
+                            <button class="btn" type="submit">Publish</button>
+                            <a href="#" class="btn" onclick="downloadCanvas(this)" download="">Download</a>
+                            <div class="share-container"></div>
+                        </form> -->
+                    </div>
                 </div>
             </div>
 
         </div>
     </main>
 
+    <script src="js/upload-service.js"></script>
     <script src="js/meme-service.js"></script>
     <script src="js/controller.js"></script>
 </body>

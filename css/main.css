@@ -4,14 +4,27 @@
 
 /*  Fonts */
 @font-face {
-    font-family: Poppins;
+    font-family: Poppins-Medium;
     src: url(../fonts/Poppins-Medium.ttf);
+}
+
+@font-face {
+    font-family: Assistant;
+    src: url(../fonts/Assistant-Regular.ttf);
+}
+@font-face {
+    font-family: Rubik;
+    src: url(../fonts/Rubik-Regular.ttf);
+}
+@font-face {
+    font-family: VarelaRound;
+    src: url(../fonts/VarelaRound-Regular.ttf);
 }
 
 
 /* BASE */
 html {
-    font-family: Poppins, sans-serif ;
+    font-family: Poppins-Medium, sans-serif ;
     background-color: #22252c;
 }
 
@@ -57,23 +70,39 @@ header .logo {
 
 header nav li {
     margin-inline-end: 20px;
+    font-size: 1.375rem;
+    padding: 2px 20px;
+    cursor: pointer;
 }
 
+header nav .active {
+    /* background-color: white; */
+    border-radius: 20px;
+    color: #21AC91;
+    /* width: 116px;
+    height: 40px; */
+    filter: drop-shadow(0px 3px 3.5px rgba(0,0,0,0.15));
+    background-color: #fefefe;
+
+}
 
 header {
-    background-color: #1ca89a;
+    /* background-color: #1ca89a; */
+    background-image: linear-gradient(to right, #0F9BB3 , #30BB73)
 }
 
 /* Main Container */
 
-.main-container {
-    background-color: #383b42;
-}
 
 /* Gallery */
 /* .search-container *{
     display: inline;
 } */
+
+.gallery-container {
+    background-color: #383b42;
+}
+
 
 .gallery-grid {
     display: grid;
@@ -93,14 +122,112 @@ header {
 
 canvas {
     border: 1px solid black;
+    border-radius: 25px;
+    /* width: 476px;
+    height: 546px; */
+    border: 6px solid rgba(235,238,243,0.09);
+}
 
+
+.editor-container {
+    gap: 75px;
 }
 
 .toolbox-container {
-    width: 546px;
+    /* width: 546px; */
     /* height: 200px; */
     /* background-color: blueviolet; */
+    background-color: #383B42;
+    width: 525px;
+    /* height: 546px; */
+    border-radius: 30px;
+    justify-content: space-around;
 }
+
+.toolbox-container input[name="text"] {
+    width: 444px;
+    height: 56px;
+    border-radius: 28px;
+    font-size: 25px;
+    font-family: Poppins-Medium;
+    text-align: center;
+    color: #3D3D3D;
+    outline: none;
+    background-color: #ebeef3;
+}
+
+.toolbox-container .basic-btns button {
+    width: 57px;
+    height: 52px;
+    border-radius: 10px;
+    border: none;
+    /* gap: 15px; */
+    margin: 5px;
+    cursor: pointer;
+}
+
+.toolbox-container .basic-btns button.axis-y {
+    background-image: linear-gradient(-38deg, #ab24d4 0%, #b13fcd 50%, #bb0b95 100%);
+}
+.toolbox-container .basic-btns button.axis-y img {
+    width: 25px;
+}
+
+.toolbox-container .basic-btns button.switch {
+    background-image: linear-gradient(-38deg, #65c3db 0%, #3fb1cd 50%, #0b97bb 100%);
+}
+
+.toolbox-container .basic-btns button.add {
+    background-image: linear-gradient(-38deg, #42eb5c 0%, #37b349 100%);
+}
+.toolbox-container .basic-btns button.add img {
+    width: 27px;
+}
+
+.toolbox-container .basic-btns button.delete {
+    background-image: linear-gradient(-38deg, #cf1d37 1%, #ef5036 100%);
+}
+.toolbox-container .basic-btns button.delete img {
+    width: 27px;
+}
+
+.style-btns.grid {
+    display: grid;
+    grid-template-columns: repeat(5, 54px);
+    gap: 33px 18px;
+    grid-auto-rows: 50px;
+    /* justify-content:center; */
+    background-color: #19A59F;
+    width: 445px;
+    height: 149px;
+    border-radius: 15px;
+    justify-content: center;
+    padding: 10px;
+}
+
+.style-btns.grid > * {
+    border-radius: 10px; 
+    border: none;
+    /* filter: drop-shadow(0.262px 4.993px 0px rgba(92,92,92,0.55)); */
+    background-color: #ffffff;
+    cursor: pointer;
+}
+
+.style-btns.grid select {
+    grid-column: span 3;
+    font-size: 26px;
+    font-weight: 600;
+    font-family: Poppins-Medium;
+}
+/* .toolbox-container .style-btns select {
+    border-radius: 10px;
+    padding: 10px 10px;
+} */
+
+/* .toolbox-container input[name="stroke"] {
+    padding: 10px;
+} */
+
 
 /* Helpers */
 
