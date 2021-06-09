@@ -34,16 +34,25 @@ img {
 }
 
 /* Layout */
-
+.main-layout {
+    max-width: 1280px;
+}
 
 /* Components */
 
 /* Main header */
 
+header {
+    margin: 10px 10px;
+    margin-bottom: 20px;
+    border-radius: 30px;
+}
+
 header .logo {
     width: 200px;
     padding: 10px 20px;
 }
+
 
 header nav li {
     margin-inline-end: 20px;
@@ -60,8 +69,24 @@ header {
     background-color: #383b42;
 }
 
+/* Editor */
+
+canvas {
+    border: 1px solid black;
+
+}
+
+.toolbox-container {
+    width: 546px;
+    height: 200px;
+    background-color: blueviolet;
+}
 
 /* Helpers */
+
+.hide {
+    display: none;
+}
 
 /* list */
 .clean-list {

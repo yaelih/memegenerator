@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/main.css">
     <title>MemeGenerator</title>
 </head>
-<body>
+<body class="main-layout">
     <header class="flex space-between align-center">
         <img class="logo" src="img/LOGO.png" />
         <nav>
@@ -19,7 +19,7 @@
     </header>
 
     <main class="main-container">
-        <div class="gallery-container">
+        <div class="gallery-container hide">
             <div class="search-container">
                 <div class="search-input"></div>
                 <div class="keywords"></div>
@@ -28,14 +28,33 @@
             <div class="gallery-grid"></div>
         </div>
 
-        <div class="editor-container">
+        <div class="editor-container flex justify-center">
             <div class="canvas-container">
-                <!-- <canvas></canvas> -->
+                <canvas id="meme-canvas" width="400" height="400">
+                    Update your browser to enjoy my amazing meme generator
+                </canvas>
             </div>
             <div class="toolbox-container">
-                <div class="text-line"></div>
-                <div class="basic-btns"></div>
-                <div class="style-btns"></div>
+                <div class="text-line">
+                    <input type="text" name="text" oninput="onTextUpdate(this.value)" autocomplete="off">
+                </div>
+                <div class="basic-btns">
+                    <button onclick="onMove(-10)">Up</button>
+                    <button onclick="onMove(10)">Down</button>
+                    <button onclick="onSwitchLine()">Switch</button>
+                    <button onclick="onAdd()">Add</button>
+                    <button onclick="onDelete()">Delete</button>
+                </div>
+                <div class="style-btns">
+                    <button onclick="onUpdateFontSize(5)">Bigger</button>
+                    <button onclick="onUpdateFontSize(-5)">Smaller</button>
+                    <button onclick="onAlignFont('left')">Left</button>
+                    <button onclick="onAlignFont('center')">Center</button>
+                    <button onclick="onAlignFont('right')">Right</button>
+                    <button>Font family</button>
+                    <input type="color" name="stroke" oninput="onSetStrokeColor(this.value)" value="#000000">Stroke
+                    <input type="color" name="color" oninput="onSetFillColor(this.value)" value="#ffffff">Color
+                </div>
                 <div class="stickers"></div>
                 <div class="advanced-btns"></div>
             </div>
@@ -43,6 +62,7 @@
         </div>
     </main>
 
-    <!-- <script src="js/controller.js"></script> -->
+    <script src="js/meme-service.js"></script>
+    <script src="js/controller.js"></script>
 </body>
 </html>
