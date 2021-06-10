@@ -49,7 +49,8 @@ img {
 
 /* Layout */
 .main-layout {
-    max-width: 1280px;
+    max-width: 640px;
+    border-radius: 20px;
 }
 
 /* Components */
@@ -57,6 +58,7 @@ img {
 /* Main header */
 
 header {
+    /* width: 1260px; */
     margin: 10px 10px;
     margin-bottom: 20px;
     border-radius: 30px;
@@ -102,10 +104,11 @@ header {
 .gallery-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, 200px);
-    gap: 25px 30px;
-    grid-auto-rows: 200px;
+    /* grid-template-columns: minmax(100px, 200px), minmax(100px, 200px); */
+    /* grid-auto-rows: 200px; */
+    /* gap: 25px 30px; */
+    gap: 15px 12px;
     justify-content:center;
-
 }
 
 .gallery-grid img {
@@ -123,14 +126,19 @@ canvas {
 
 
 .editor-container {
-    gap: 75px;
+    flex-direction: column;
+    align-items: center;
+    align-content:space-around;
+    align-items:center;
 }
 
 .toolbox-container {
     background-color: #383B42;
     width: 525px;
+    height: 404px;
     border-radius: 30px;
     justify-content: space-around;
+    align-content: space-around;
 }
 
 .toolbox-container input[name="text"] {
@@ -298,4 +306,35 @@ canvas {
 
 .flex.space-between {
     justify-content: space-between;
+}
+
+
+/*-----In Progress-----*/
+@media (min-width: 640px) {
+    .main-layout {
+        max-width: 1244px;
+    }
+    .gallery-grid {
+        grid-template-columns: repeat(auto-fit, 200px);
+        /* gap: 25px 30px; */
+        gap: 15px 30px;
+        grid-auto-rows: 200px;
+
+        /* grid-template-columns: 200px 200px;
+        justify-content:center; */
+    }
+
+    .editor-container {
+        gap: 75px;
+        flex-direction: row;
+    }
+
+    .toolbox-container {
+       background-color: #383B42;
+       width: 525px;
+       height: 404px;
+       border-radius: 30px;
+       justify-content: space-around;
+    } 
+    
 }

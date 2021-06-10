@@ -53,6 +53,7 @@ function renderGrid(){
 
 function onSelection(imgUrl){
     document.querySelector('.temp-div-gallery').classList.add('hide');
+    cleanAllNavActive();
     setSelectedMemeToEditor(imgUrl);
     document.querySelector('.temp-div-editor').classList.remove('hide');
 }
@@ -64,10 +65,19 @@ function onDownloadMeme(elLink) {
 function onGallery(){
     document.querySelector('.temp-div-editor').classList.add('hide');
     document.querySelector('[name="text"]').value ='';
+    cleanAllNavActive();
+    document.querySelector('header nav .gallery').classList.add('active')
     document.querySelector('.temp-div-gallery').classList.remove('hide');
 }
 
 function removeHighlight(){
     console.log('inside remove highlight')
     renderMeme(false);
+}
+
+function cleanAllNavActive(){
+    var els = document.querySelectorAll('header nav li');
+    els.forEach(el => {
+        el.classList.remove('active');
+    })
 }
