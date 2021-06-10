@@ -57,12 +57,17 @@ function onSelection(imgUrl){
     document.querySelector('.temp-div-editor').classList.remove('hide');
 }
 
-function download(elLink) {
-    downloadCanvas(elLink);
+function onDownloadMeme(elLink) {
+    downloadMeme(elLink);
 }
 
 function onGallery(){
     document.querySelector('.temp-div-editor').classList.add('hide');
     document.querySelector('[name="text"]').value ='';
     document.querySelector('.temp-div-gallery').classList.remove('hide');
+}
+
+function removeHighlight(){
+    console.log('inside remove highlight')
+    renderMeme(false);
 }

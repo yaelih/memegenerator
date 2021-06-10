@@ -66,8 +66,8 @@
                             <option value="Rubik">Rubik</option>
                             <option value="VarelaRound">VarelaRound</option>
                         </select>
-                        <button><input type="color" name="stroke" oninput="onSetStrokeColor(this.value)" value="#000000"></button>
-                        <input type="color" name="color" oninput="onSetFillColor(this.value)" value="#ffffff">
+                        <button class="stroke-btn"><input type="color" name="stroke" oninput="onSetStrokeColor(this.value)" value="#000000"></button>
+                        <button class="fill-btn"><input type="color" name="color" oninput="onSetFillColor(this.value)" value="#ffffff"></button>
                     </div>
                     <div class="stickers"></div>
                     <div class="advanced-btns">
@@ -77,14 +77,18 @@
                             <a href="#" class="btn" onclick="downloadCanvas(this)" download="">Download</a>
                             <div class="share-container"></div>
                         </form> -->
+                        <a href="#" class="download-btn" onclick="onDownloadMeme(this)" download="">Download
+                            <!-- <button class="highlight" onclick="removeHighlight()">Remove highlight</button> -->
+                        </a>
                     </div>
                 </div>
             </div>
 
         </div>
+        <!-- <div class="modal hide"></div> -->
     </main>
 
-    <script src="js/upload-service.js"></script>
+    <!-- <script src="js/upload-service.js"></script> -->
     <script src="js/meme-service.js"></script>
     <script src="js/controller.js"></script>
 </body>

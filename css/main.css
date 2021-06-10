@@ -95,14 +95,9 @@ header {
 
 
 /* Gallery */
-/* .search-container *{
-    display: inline;
-} */
-
 .gallery-container {
     background-color: #383b42;
 }
-
 
 .gallery-grid {
     display: grid;
@@ -123,8 +118,6 @@ header {
 canvas {
     border: 1px solid black;
     border-radius: 25px;
-    /* width: 476px;
-    height: 546px; */
     border: 6px solid rgba(235,238,243,0.09);
 }
 
@@ -134,12 +127,8 @@ canvas {
 }
 
 .toolbox-container {
-    /* width: 546px; */
-    /* height: 200px; */
-    /* background-color: blueviolet; */
     background-color: #383B42;
     width: 525px;
-    /* height: 546px; */
     border-radius: 30px;
     justify-content: space-around;
 }
@@ -191,6 +180,26 @@ canvas {
     width: 27px;
 }
 
+.toolbox-container .stroke-btn {
+    background-image: url('../img/stroke.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.toolbox-container .fill-btn {
+    background-image: url('../img/fill.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.toolbox-container .stroke-btn input,
+.toolbox-container .fill-btn input {
+    opacity: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+}
+
 .style-btns.grid {
     display: grid;
     grid-template-columns: repeat(5, 54px);
@@ -228,6 +237,34 @@ canvas {
     padding: 10px;
 } */
 
+.advanced-btns .download-btn {
+    /* width: 212px;
+    height: 50px; */
+    padding: 10px 10px;
+    border-radius: 15px;
+    filter: drop-shadow(0.314px 5.992px 0px #632687);
+    background-color: #8f44bb;
+}
+
+.highlight {
+    border: 1px solid black;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    visibility: hidden;
+}
+
+/* Modal */
+/* .modal {
+    position: fixed;
+    width: 300px;
+    height: 200px;
+    left: calc(vw100 / 2 - 150px );
+    top: calc(vh100 / 2 - 100px );
+    background-color: purple;
+} */
 
 /* Helpers */
 

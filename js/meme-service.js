@@ -1,5 +1,4 @@
 'use strict';
-//Create from imgs keywords
 var gKeywords = { 'happy': 12, 'funny puk': 1, 'smile': 5, 'crazy': 3 }
 
 var gImgs = [
@@ -26,7 +25,6 @@ var gImgs = [
 var gElCanvas;
 var gCtx;
 
-// var gCurrLineIdx = 0;
 var gMeme;
 var gFillColor;
 var gStrokeColor;
@@ -35,14 +33,14 @@ var gStrokeColor;
 gElCanvas = document.querySelector('#meme-canvas');
 gCtx = gElCanvas.getContext('2d');
 
-function renderMeme() {
+function renderMeme(highlight = true) {
     // console.log(gMeme.selectedLineIdx);
     var img = new Image()
     img.src = gImgs[gMeme.selectedImgId - 1].url;
     img.onload = () => {
         gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
         drawText(gMeme.lines)
-        highlightLine();
+        if (highlight) highlightLine();
     }
 }
 
@@ -52,7 +50,7 @@ function drawText(lines) {
         gCtx.strokeStyle = line.strokeColor;
         gCtx.fillStyle = line.fillColor;
         gCtx.font = line.size + 'px ' + line.font;
-        gCtx.textAlign = line.align;
+        gCtx.textAlign = 'start';
         gCtx.fillText(line.txt, line.pos.x, line.pos.y)
         gCtx.strokeText(line.txt, line.pos.x, line.pos.y)
         // console.log(gCtx.measureText(line.txt))
@@ -60,12 +58,9 @@ function drawText(lines) {
 }
 
 function createAndUpdateLine(value) {
-    console.log(!gMeme.lines[gMeme.selectedLineIdx])
-
-    // if (gMeme.lines[gMeme.selectedLineIdx] === undefined) createLine(value);
     if (!gMeme.lines[gMeme.selectedLineIdx]) createLine(value);
     gMeme.lines[gMeme.selectedLineIdx].txt = value;
-    renderMeme();
+    updateFontAlignment(gMeme.lines[gMeme.selectedLineIdx].align);
 }
 
 function increaseLineIdx() {  //TODO check if empty?
@@ -85,26 +80,27 @@ function updateFontAlignment(value) {
     if (!gMeme.lines[0]) return
     var line = gMeme.lines[gMeme.selectedLineIdx];
     var x;
+    var xPadding = 10;
     switch (value) {
         case 'center':
-            x = gElCanvas.width / 2;
+            x = gElCanvas.width / 2 - gCtx.measureText(line.txt).width / 2;
             break;
         case 'left':
-            x = 10;
+            x = 0 + xPadding;
             break;
         case 'right':
-            x = gElCanvas.width - gCtx.measureText(line.txt).width / 2 + 20;
+            x = gElCanvas.width - gCtx.measureText(line.txt).width - xPadding;
             break;
     }
     // console.log(gCtx.measureText(line.txt))
-    line.pos.x = x;
     gMeme.lines[gMeme.selectedLineIdx].align = value;
+    line.pos.x = x;
     renderMeme();
 }
 
-function updateFontFamily(value){
+function updateFontFamily(value) {
     if (!gMeme.lines[0]) return
-    console.log()
+    // console.log()
     gMeme.lines[gMeme.selectedLineIdx].font = value;
     renderMeme();
 }
@@ -126,18 +122,14 @@ function switchLine() {
 
 function deleteLine() {
     if (!gMeme.lines[0]) return null
-    console.log('\before',gMeme.selectedLineIdx)
     gMeme.lines.splice(gMeme.selectedLineIdx, 1);
-    console.log('after',gMeme.selectedLineIdx)
     if (gMeme.selectedLineIdx === gMeme.lines.length) gMeme.selectedLineIdx = 0;
-    console.log('after',gMeme.selectedLineIdx)
     renderMeme();
     var currentInputText = gMeme.lines.length > 0 ? gMeme.lines[gMeme.selectedLineIdx].txt : '';
-    console.log('currText', currentInputText)
     return currentInputText;
 }
 
-function updateStrokeColor(value) { 
+function updateStrokeColor(value) {
     if (!gMeme.lines[0]) return gStrokeColor = value;
     gStrokeColor = value;
     gMeme.lines[gMeme.selectedLineIdx].strokeColor = value;
@@ -154,24 +146,28 @@ function updateFillColor(value) {
 function createLine(text) {
     var size = 40;
     var pos;
+    var yPadding = 10;
+    var x = gElCanvas.width / 2 - gCtx.measureText(text).width / 2;
     if (gMeme.lines.length === 0) {
-        pos = { x: gElCanvas.width / 2, y: size + 10 }
+        pos = { x, y: size + yPadding }
     }
     else if (gMeme.lines.length === 1) {
-        pos = { x: gElCanvas.width / 2, y: gElCanvas.height - size }
+        pos = { x, y: gElCanvas.height - yPadding }
+
     }
     else {
-        pos = { x: gElCanvas.width / 2, y: gElCanvas.height / 2 + size / 2 }
+        pos = { x, y: gElCanvas.height / 2 + size / 2 }
     }
     var line = {
         txt: text,
         size: size,
         font: 'Impact',
         align: 'center',
-        fillColor: !gFillColor ? 'white': gFillColor,
+        fillColor: !gFillColor ? 'white' : gFillColor,
         strokeColor: !gStrokeColor ? 'black' : gStrokeColor,
         pos
     }
+    gCtx.align = 'start';
     gMeme.lines.push(line);
 }
 
@@ -201,14 +197,22 @@ function highlightLine() {
         var selectedLine = gMeme.lines[gMeme.selectedLineIdx]
         var height = selectedLine.size;
         var width = gCtx.measureText(selectedLine.txt).width;
-        var x = selectedLine.pos.x - width / 2;
+        var x = selectedLine.pos.x;
         var y = selectedLine.pos.y - height;
 
         gCtx.save();
         gCtx.lineWidth = 2;
         gCtx.strokeStyle = 'gray';
         gCtx.beginPath()
-        gCtx.strokeRect(x-10, y, width + 15, height +10)
+        gCtx.strokeRect(x - 10, y, width + 15, height + 10)
         gCtx.restore();
     }
+}
+
+//TODO find solution to remove the last highlight
+function downloadMeme(elLink) {
+    renderMeme(false);
+    const data = gElCanvas.toDataURL('image/png')
+    elLink.href = data
+    elLink.download = 'my-canvas.png'
 }
