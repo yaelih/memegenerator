@@ -9,25 +9,30 @@
     <title>MemeGenerator</title>
 </head>
 
-<body onload="renderGrid()">
+<body onload="onInit()">
+    <div class="main-screen" onclick="toggleMenu()"></div>
     <header class="flex space-between align-center">
-        <img class="logo" src="img/LOGO.png" />
+        <img class="logo" src="img/logo.png" />
         <nav>
-            <ul class="clean-list flex">
+            <ul class="clean-list flex align-center">
                 <li class="gallery active" onclick="onGallery()">Gallery</li>
                 <li class="about">About</li>
             </ul>
+            <button class="toggle-menu-btn" onclick="toggleMenu()" alt="Open main menu"><img src="img/menu.png"></button>
+            <!-- <div class="toggle-menu-screen screen" onclick="toggleMenu()" alt="toggle main menu"></div> -->
         </nav>
     </header>
 
     <main class="main-container">
-        <!-- temp solution of hiding containers -->
-        <div class="temp-div-gallery">
-            <div class="gallery-container main-layout flex column justify-center">
-                <div class="search-container flex justify-center">
-                    <input class="search-input" placeholder="Search"></input>
-                    <!--add search button-->
-                    <div class="keywords"></div>
+        
+        <div class="gallery-main-container">
+            <div class="gallery-container flex column justify-center">
+                <div class="search-container flex justify-center align-center">
+                    <div class="search-input-container flex space-between align-center">
+                        <input class="search-input" type="text" placeholder="Search"></input>
+                        <div class="search-btn">&#x1F50D;</div>
+                    </div>
+                    <div class="keywords">Comic Funny</div>
                     <button class="more-btn">More</button>
                 </div>
                 <div class="gallery-grid">
@@ -35,7 +40,7 @@
             </div>
         </div>
 
-        <div class="temp-div-editor hide">
+        <div class="editor-main-container hide">
             <div class="editor-container flex justify-center">
                 <div class="canvas-container">
                     <canvas id="meme-canvas" width="400" height="400">
@@ -47,8 +52,8 @@
                         <input type="text" name="text" oninput="onTextUpdate(this.value)" autocomplete="off">
                     </div>
                     <div class="basic-btns flex">
-                        <button onclick="onMove(-10)" class="axis-y"><img src="img/up.png" /></button>
-                        <button onclick="onMove(10)" class="axis-y"><img src="img/down.png" /></button>
+                        <button onclick="onMoveLine(-10)" class="axis-y"><img src="img/up.png" /></button>
+                        <button onclick="onMoveLine(10)" class="axis-y"><img src="img/down.png" /></button>
                         <button onclick="onSwitchLine()" class="switch flex align-center"><img src="img/up.png" /><img src="img/down.png" /></button>
                         <button onclick="onAdd()" class="add"><img src="img/add.png" /></button>
                         <button onclick="onDelete()" class="delete"><img src="img/delete.png" /></button>
@@ -71,24 +76,21 @@
                     </div>
                     <div class="stickers"></div>
                     <div class="advanced-btns">
-                        <!-- <form action="" method="POST" enctype="multipart/form-data" onsubmit="uploadImg(this, event)">
+                        <form action="" method="POST" enctype="multipart/form-data" onsubmit="uploadImg(this, event)">
                             <input name="img" id="imgData" type="hidden" />
-                            <button class="btn" type="submit">Publish</button>
-                            <a href="#" class="btn" onclick="downloadCanvas(this)" download="">Download</a>
+                            <button class="publish-btn" type="submit"><img src="img/share.png" /> Share</button>
+                            <a href="#" class="download-btn" onclick="onDownloadMeme()">Download</a>
                             <div class="share-container"></div>
-                        </form> -->
-                        <a href="#" class="download-btn" onclick="onDownloadMeme(this)" download="">Download
-                            <!-- <button class="highlight" onclick="removeHighlight()">Remove highlight</button> -->
-                        </a>
+                        </form>
                     </div>
                 </div>
             </div>
 
         </div>
-        <!-- <div class="modal hide"></div> -->
+        <div class="modal hide"></div>
     </main>
 
-    <!-- <script src="js/upload-service.js"></script> -->
+    <script src="js/upload-service.js"></script>
     <script src="js/meme-service.js"></script>
     <script src="js/controller.js"></script>
 </body>

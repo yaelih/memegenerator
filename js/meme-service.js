@@ -1,5 +1,5 @@
 'use strict';
-var gKeywords = { 'happy': 12, 'funny puk': 1, 'smile': 5, 'crazy': 3 }
+var gKeywords = { 'happy': 12, 'comic': 1, 'smile': 5, 'crazy': 5 }
 
 var gImgs = [
     { id: 1, url: 'img/memes/1.jpg', keywords: ['happy'] },
@@ -32,6 +32,10 @@ var gStrokeColor;
 
 gElCanvas = document.querySelector('#meme-canvas');
 gCtx = gElCanvas.getContext('2d');
+
+function getCanvas(){
+    return gElCanvas;
+}
 
 function renderMeme(highlight = true) {
     // console.log(gMeme.selectedLineIdx);
@@ -179,7 +183,7 @@ function setSelectedMemeToEditor(imgUrl) {
     var imgIdx = getImgIdx(imgUrl);
     gMeme = {
         selectedImgId: imgIdx,
-        selectedLineIdx: 0,
+        selectedLineIdx: 0, //change to -1
         lines: []
     }
     renderMeme();
@@ -209,10 +213,61 @@ function highlightLine() {
     }
 }
 
-//TODO find solution to remove the last highlight
-function downloadMeme(elLink) {
-    renderMeme(false);
-    const data = gElCanvas.toDataURL('image/png')
-    elLink.href = data
-    elLink.download = 'my-canvas.png'
+function downloadMeme() {
+    const data = gElCanvas.toDataURL('image/jpeg')
+    // const data = gElCanvas.toDataURL('image/png')
+    var elModal = document.querySelector('.modal');
+    elModal.innerHTML = `<a href="${data}" class="" onclick="closeModal()" download="my-meme">Click to download</a>`;
+    console.log(elModal.innerHTML)
+    openModal();
+    
+    // elModal.classList.remove('hide');
+    // elLink.href = data
+    // elLink.download = 'my-meme.png';
+}
+
+
+
+//Drag handling
+function getClickedObject(clickedPos) {
+    var lineObg = gMeme.lines.find( line => { 
+        var width = gCtx.measureText(line.txt).width
+        var height = line.size;
+        var { x, y } = clickedPos;
+        // console.log('pos', clickedPos, 'x', x, 'y', y)
+        // console.log(line)
+        // console.log('width', width, 'height', height)
+        // console.log('line', line)
+        // console.log(`x: ${x} >= ${line.pos.x} && ${x} <= ${line.pos.x + width}`)
+        // console.log((x >= line.pos.x && x <= line.pos.x + width))
+        // console.log((y >= line.pos.y - height && y <= line.pos.y))
+        return ((x >= line.pos.x && x <= line.pos.x + width) && (y >= line.pos.y - height && y <= line.pos.y)) 
+    })
+    return lineObg;
+}
+
+function hightlightObject(clickedObject){
+    var idx = gMeme.lines.findIndex(line => line === clickedObject)
+    gMeme.selectedLineIdx = idx;
+    renderMeme();
+}
+
+function moveObject(clickedObject, dx, dy){
+    clickedObject.pos.x += dx;
+    clickedObject.pos.y += dy;
+    renderMeme();
+}
+
+// function getObjectById(id){
+//     return gMeme.lines.find(line => line.id === id);
+// }
+
+
+function setObjectDrag(isDrag) {
+    gCircle.isDrag = isDrag
+}
+function moveCircle(dx, dy) {
+    gCircle.pos.x += dx
+    gCircle.pos.y += dy
+
 }
