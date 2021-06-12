@@ -428,7 +428,7 @@ canvas {
 .modal {
     position: fixed;
     padding: 40px;
-    top: 50%;
+    top: 30%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: purple ;
