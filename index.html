@@ -16,10 +16,9 @@
         <nav>
             <ul class="clean-list flex align-center">
                 <li class="gallery active" onclick="onGallery()">Gallery</li>
-                <li class="about">About</li>
+                <li class="about" onclick="onAbout()">About</li>
             </ul>
             <button class="toggle-menu-btn" onclick="toggleMenu()" alt="Open main menu"><img src="img/menu.png"></button>
-            <!-- <div class="toggle-menu-screen screen" onclick="toggleMenu()" alt="toggle main menu"></div> -->
         </nav>
     </header>
 
@@ -29,7 +28,13 @@
             <div class="gallery-container flex column justify-center">
                 <div class="search-container flex justify-center align-center">
                     <div class="search-input-container flex space-between align-center">
-                        <input class="search-input" type="text" placeholder="Search"></input>
+                        <datalist id="keys">
+                            <option value="all" label="all" />
+                            <option value="dogs" label="dogs" />
+                            <option value="man" label="man" />
+                            <option value="kids" label="kids" />
+                        </datalist>
+                        <input class="search-input" type="text" list="keys" onfocus="this.value=''" onchange="this.blur()"" placeholder="Search" oninput="onSetFilter(this.value)"></input>
                         <div class="search-btn">&#x1F50D;</div>
                     </div>
                     <div class="keywords">Comic Funny</div>
@@ -79,7 +84,7 @@
                         <form action="" method="POST" enctype="multipart/form-data" onsubmit="uploadImg(this, event)">
                             <input name="img" id="imgData" type="hidden" />
                             <button class="publish-btn" type="submit"><img src="img/share.png" /> Share</button>
-                            <a href="#" class="download-btn" onclick="onDownloadMeme()">Download</a>
+                            <button class="download-btn" onclick="onDownloadMeme()"><img src="img/download.png" />Download</button>
                             <div class="share-container"></div>
                         </form>
                     </div>
@@ -87,7 +92,10 @@
             </div>
 
         </div>
-        <div class="modal hide"></div>
+        <div class="modal hide">
+            <button class="close-btn" onclick="closeModal()">X</button>
+            <div class="modal-content"></div>
+        </div>
     </main>
 
     <script src="js/upload-service.js"></script>

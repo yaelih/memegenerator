@@ -78,13 +78,10 @@ header .logo {
     .toggle-menu-btn {
         display: none;
     }
-    /* header nav ul {
-        display: none;
-    } */
 }
 
 header nav li:last-child {
-    margin-inline-end: 250px; /*TODO add media query*/
+    margin-inline-end: 250px; /*TODO fix */
 }
 
 header nav li {
@@ -117,11 +114,7 @@ header nav .active {
     }
     nav ul li {
         margin: 2.5rem 0;
-        /* display: block; */
     }
-    /* nav li:hover {  TODO find a hover effect
-        color: gray;
-     }  */
     header nav li:last-child {
         margin-inline-end: 0;
     }
@@ -182,6 +175,7 @@ body.menu-open .main-screen {
     padding-left: 50px;
     border-radius: 29px;
     font-size: 1.375rem;
+    width: 450px;
 }
 
 .search-btn {
@@ -220,7 +214,6 @@ body.menu-open .main-screen {
     grid-template-columns: repeat(auto-fit, 200px);
     /* grid-template-columns: minmax(100px, 200px), minmax(100px, 200px); */
     /* grid-auto-rows: 200px; */
-    /* grid-auto-rows: 174px; */
     /* gap: 25px 30px; */
     gap: 20px 28px;
     justify-content:center;
@@ -310,12 +303,12 @@ canvas {
     height: 52px;
     border-radius: 10px;
     border: none;
-    /* gap: 15px; */
     margin: 5px;
     cursor: pointer;
 }
 
 .toolbox-container .basic-btns button.axis-y {
+    filter: drop-shadow(0.262px 4.993px 0px #5f1177);
     background-image: linear-gradient(-38deg, #ab24d4 0%, #b13fcd 50%, #bb0b95 100%);
 }
 .toolbox-container .basic-btns button.axis-y img {
@@ -323,10 +316,12 @@ canvas {
 }
 
 .toolbox-container .basic-btns button.switch {
+    filter: drop-shadow(0.262px 4.993px 0px #048b97);
     background-image: linear-gradient(-38deg, #65c3db 0%, #3fb1cd 50%, #0b97bb 100%);
 }
 
 .toolbox-container .basic-btns button.add {
+    filter: drop-shadow(0.262px 4.993px 0px #015d33);
     background-image: linear-gradient(-38deg, #42eb5c 0%, #37b349 100%);
 }
 .toolbox-container .basic-btns button.add img {
@@ -334,6 +329,7 @@ canvas {
 }
 
 .toolbox-container .basic-btns button.delete {
+    filter: drop-shadow(0.262px 4.993px 0px #8c0606);
     background-image: linear-gradient(-38deg, #cf1d37 1%, #ef5036 100%);
 }
 .toolbox-container .basic-btns button.delete img {
@@ -363,21 +359,21 @@ canvas {
 .style-btns.grid {
     display: grid;
     grid-template-columns: repeat(5, 54px);
-    gap: 33px 18px;
+    gap: 18px 18px;
     grid-auto-rows: 50px;
-    /* justify-content:center; */
+    justify-content: center;
     background-color: #19A59F;
     width: 445px;
     height: 149px;
     border-radius: 15px;
-    justify-content: center;
-    padding: 10px;
+    justify-content: space-between;
+    padding: 10px 16px;
 }
 
 .style-btns.grid > * {
     border-radius: 10px; 
     border: none;
-    /* filter: drop-shadow(0.262px 4.993px 0px rgba(92,92,92,0.55)); */
+    filter: drop-shadow(0.262px 4.993px 0px rgba(92,92,92,0.55));
     background-color: #ffffff;
     cursor: pointer;
 }
@@ -388,37 +384,32 @@ canvas {
     font-weight: 600;
     font-family: Poppins-Medium;
 }
-/* .toolbox-container .style-btns select {
+.toolbox-container .style-btns select {
     border-radius: 10px;
-    padding: 10px 10px;
-} */
+    padding: 6px 12px;
+    text-transform: uppercase;
+}
 
-/* .toolbox-container input[name="stroke"] {
-    padding: 10px;
-} */
-
+.advanced-btns .download-btn,
 .advanced-btns .publish-btn {
     font-family: Poppins-Medium, sans-serif;
     font-size: 1.275rem;
     color: #FFFFFF;
     border: none;
     padding: 4px 22px;
-    /* width: 212px;
-    height: 50px; */
-    border-radius: 15px;
+    border-radius: 13px;
     filter: drop-shadow(0.314px 5.992px 0px #165c9c);
     background-color: #1e7cd3;
+    cursor: pointer;
 }
+
+.advanced-btns .download-btn img,
 .advanced-btns .publish-btn img {
-    width: 1.375rem;
+    width: 24px;
     padding-inline-end: 5px;
 }
 
 .advanced-btns .download-btn {
-    /* width: 212px;
-    height: 50px; */
-    padding: 10px 10px;
-    border-radius: 15px;
     filter: drop-shadow(0.314px 5.992px 0px #632687);
     background-color: #8f44bb;
 }
@@ -436,16 +427,26 @@ canvas {
 /* Modal */
 .modal {
     position: fixed;
-    width: 300px;
-    height: 200px;
-    left: 500px;
-    top: 100px;
-    /* left: calc( vw100 / 2 - 150px );
-    top: calc(vh100 / 2 - 100px ); */
-    background-color: purple;
+    padding: 40px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: purple ;
     border-radius: 20px;
-    margin: 20px;
-    
+    box-shadow: 0px 0px 9px 8px rgb(155 155 155 / 80%);
+    text-align: center;
+}
+
+.modal .close-btn {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    border: none;
+    border-radius: 7px;
+    background-color: purple;
+    color: white;
+    font-weight: 900;
+    cursor: pointer;
 }
 
 /* Helpers */
@@ -481,13 +482,3 @@ canvas {
 .flex.space-between {
     justify-content: space-between;
 }
-
-
-
-
-
-/*
-header 1258px auto
-margin 15
-main 1244px auto  x 566px height  (10px margin bottom)
-*/

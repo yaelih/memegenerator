@@ -5,8 +5,6 @@ var gIsDragging = false;
 var gClickedObject;
 const gTouchEvs = ['touchstart', 'touchmove', 'touchend']
 
-//Update the controller to handle Canvas as well 
-
 function onInit() {
     renderGrid();
 }
@@ -140,7 +138,6 @@ function onSelection(imgUrl){
 function onDownloadMeme() {
     renderMeme(false);
     setTimeout(downloadMeme, 500);
-    // downloadMeme();
 }
 
 function onGallery(){
@@ -151,12 +148,6 @@ function onGallery(){
     document.querySelector('.gallery-main-container').classList.remove('hide');
 }
 
-//TODO do I need it?
-function removeHighlight(){
-    console.log('inside remove highlight')
-    renderMeme(false);
-}
-
 function cleanAllNavActive(){
     var els = document.querySelectorAll('header nav li');
     els.forEach(el => {
@@ -164,11 +155,21 @@ function cleanAllNavActive(){
     })
 }
 
+function onAbout(){
+    var strHTML = '<h2>This AWESOME meme generator was built by Yael Hazan</h2>'
+    document.querySelector('.modal-content').innerHTML = strHTML;
+    openModal();
+}
+
+function onSetFilter(txt) {
+    setFilter(txt)
+    renderGrid();
+
+}
+
 //Menu and modal
 function toggleMenu() {
-    console.log('clicked')
     var mainMenu = document.querySelector('nav');
-    // mainMenu.classList.toggle('open');
     document.body.classList.toggle('menu-open');
 }
 
@@ -181,5 +182,5 @@ function openModal(){
 function closeModal(){
     var elModal = document.querySelector('.modal');
     elModal.classList.add('hide');
-    elModal.innerHTML='';
+    document.querySelector('.modal-content').innerHTML='';
 }

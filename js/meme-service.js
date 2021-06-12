@@ -2,24 +2,24 @@
 var gKeywords = { 'happy': 12, 'comic': 1, 'smile': 5, 'crazy': 5 }
 
 var gImgs = [
-    { id: 1, url: 'img/memes/1.jpg', keywords: ['happy'] },
-    { id: 2, url: 'img/memes/2.jpg', keywords: [] },
-    { id: 3, url: 'img/memes/3.jpg', keywords: [] },
-    { id: 4, url: 'img/memes/4.jpg', keywords: [] },
-    { id: 5, url: 'img/memes/5.jpg', keywords: [] },
-    { id: 6, url: 'img/memes/6.jpg', keywords: [] },
-    { id: 7, url: 'img/memes/7.jpg', keywords: [] },
-    { id: 8, url: 'img/memes/8.jpg', keywords: [] },
-    { id: 9, url: 'img/memes/9.jpg', keywords: [] },
-    { id: 10, url: 'img/memes/10.jpg', keywords: [] },
-    { id: 11, url: 'img/memes/11.jpg', keywords: [] },
-    { id: 12, url: 'img/memes/12.jpg', keywords: [] },
-    { id: 13, url: 'img/memes/13.jpg', keywords: [] },
-    { id: 14, url: 'img/memes/14.jpg', keywords: [] },
-    { id: 15, url: 'img/memes/15.jpg', keywords: [] },
-    { id: 16, url: 'img/memes/16.jpg', keywords: [] },
-    { id: 17, url: 'img/memes/17.jpg', keywords: [] },
-    { id: 18, url: 'img/memes/18.jpg', keywords: [] },
+    { id: 1, url: 'img/memes/1.jpg', keywords: ['trump', 'man'] },
+    { id: 2, url: 'img/memes/2.jpg', keywords: ['dogs'] },
+    { id: 3, url: 'img/memes/3.jpg', keywords: ['dogs', 'babies', 'cute', 'sleep'] },
+    { id: 4, url: 'img/memes/4.jpg', keywords: ['cats', 'sleep'] },
+    { id: 5, url: 'img/memes/5.jpg', keywords: ['kids'] },
+    { id: 6, url: 'img/memes/6.jpg', keywords: ['man'] },
+    { id: 7, url: 'img/memes/7.jpg', keywords: ['kids'] },
+    { id: 8, url: 'img/memes/8.jpg', keywords: ['man'] },
+    { id: 9, url: 'img/memes/9.jpg', keywords: ['kids', 'evil'] },
+    { id: 10, url: 'img/memes/10.jpg', keywords: ['man', 'black', 'obama'] },
+    { id: 11, url: 'img/memes/11.jpg', keywords: ['black'] },
+    { id: 12, url: 'img/memes/12.jpg', keywords: ['you'] },
+    { id: 13, url: 'img/memes/13.jpg', keywords: ['cheers', 'man'] },
+    { id: 14, url: 'img/memes/14.jpg', keywords: ['black', 'man'] },
+    { id: 15, url: 'img/memes/15.jpg', keywords: ['man'] },
+    { id: 16, url: 'img/memes/16.jpg', keywords: ['man'] },
+    { id: 17, url: 'img/memes/17.jpg', keywords: ['putin', 'man'] },
+    { id: 18, url: 'img/memes/18.jpg', keywords: ['everywhere', 'toys'] },
 ];
 
 var gElCanvas;
@@ -28,6 +28,8 @@ var gCtx;
 var gMeme;
 var gFillColor;
 var gStrokeColor;
+
+var gFilterBy = '';
 
 
 gElCanvas = document.querySelector('#meme-canvas');
@@ -38,7 +40,6 @@ function getCanvas(){
 }
 
 function renderMeme(highlight = true) {
-    // console.log(gMeme.selectedLineIdx);
     var img = new Image()
     img.src = gImgs[gMeme.selectedImgId - 1].url;
     img.onload = () => {
@@ -57,7 +58,6 @@ function drawText(lines) {
         gCtx.textAlign = 'start';
         gCtx.fillText(line.txt, line.pos.x, line.pos.y)
         gCtx.strokeText(line.txt, line.pos.x, line.pos.y)
-        // console.log(gCtx.measureText(line.txt))
     })
 }
 
@@ -96,7 +96,6 @@ function updateFontAlignment(value) {
             x = gElCanvas.width - gCtx.measureText(line.txt).width - xPadding;
             break;
     }
-    // console.log(gCtx.measureText(line.txt))
     gMeme.lines[gMeme.selectedLineIdx].align = value;
     line.pos.x = x;
     renderMeme();
@@ -104,7 +103,6 @@ function updateFontAlignment(value) {
 
 function updateFontFamily(value) {
     if (!gMeme.lines[0]) return
-    // console.log()
     gMeme.lines[gMeme.selectedLineIdx].font = value;
     renderMeme();
 }
@@ -176,14 +174,19 @@ function createLine(text) {
 }
 
 function getImgs() {
-    return gImgs.map(img => img.url)
+    if (gFilterBy === 'all') return gImgs.map(img => img.url)
+    var regex = new RegExp(gFilterBy, 'i')
+    var imgs = gImgs.filter(function(img){
+        return regex.test(img.keywords)
+    })
+    return imgs.map(img => img.url)
 }
 
 function setSelectedMemeToEditor(imgUrl) {
     var imgIdx = getImgIdx(imgUrl);
     gMeme = {
         selectedImgId: imgIdx,
-        selectedLineIdx: 0, //change to -1
+        selectedLineIdx: 0, //change to -1 and change handling this
         lines: []
     }
     renderMeme();
@@ -216,14 +219,9 @@ function highlightLine() {
 function downloadMeme() {
     const data = gElCanvas.toDataURL('image/jpeg')
     // const data = gElCanvas.toDataURL('image/png')
-    var elModal = document.querySelector('.modal');
+    var elModal = document.querySelector('.modal-content');
     elModal.innerHTML = `<a href="${data}" class="" onclick="closeModal()" download="my-meme">Click to download</a>`;
-    console.log(elModal.innerHTML)
     openModal();
-    
-    // elModal.classList.remove('hide');
-    // elLink.href = data
-    // elLink.download = 'my-meme.png';
 }
 
 
@@ -234,13 +232,6 @@ function getClickedObject(clickedPos) {
         var width = gCtx.measureText(line.txt).width
         var height = line.size;
         var { x, y } = clickedPos;
-        // console.log('pos', clickedPos, 'x', x, 'y', y)
-        // console.log(line)
-        // console.log('width', width, 'height', height)
-        // console.log('line', line)
-        // console.log(`x: ${x} >= ${line.pos.x} && ${x} <= ${line.pos.x + width}`)
-        // console.log((x >= line.pos.x && x <= line.pos.x + width))
-        // console.log((y >= line.pos.y - height && y <= line.pos.y))
         return ((x >= line.pos.x && x <= line.pos.x + width) && (y >= line.pos.y - height && y <= line.pos.y)) 
     })
     return lineObg;
@@ -258,16 +249,14 @@ function moveObject(clickedObject, dx, dy){
     renderMeme();
 }
 
-// function getObjectById(id){
-//     return gMeme.lines.find(line => line.id === id);
-// }
-
-
 function setObjectDrag(isDrag) {
     gCircle.isDrag = isDrag
 }
 function moveCircle(dx, dy) {
     gCircle.pos.x += dx
     gCircle.pos.y += dy
+}
 
+function setFilter(filterBy) {
+    gFilterBy = filterBy;
 }
