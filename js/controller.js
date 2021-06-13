@@ -13,7 +13,7 @@ function onInit() {
 
 function addListeners(elCanvas) {
     addMouseListeners(elCanvas);
-    addTouchListeners(elCanvas); 
+    addTouchListeners(elCanvas);
     // window.addEventListener('resize', () => {  //TODO check this out
     //     resizeCanvas()
     //     clearCanvas()
@@ -75,16 +75,16 @@ function getEvPos(ev) {
 
 //Canvas and Gallery
 
-function onTextUpdate(value){
+function onTextUpdate(value) {
     createAndUpdateLine(value);
 }
 
-function onAdd(){
-    document.querySelector('[name="text"]').value ='';
+function onAdd() {
+    document.querySelector('[name="text"]').value = '';
     increaseLineIdx();
 }
 
-function onUpdateFontSize(diff){
+function onUpdateFontSize(diff) {
     updateFontSize(diff);
 }
 
@@ -92,20 +92,20 @@ function onAlignFont(value) {
     updateFontAlignment(value);
 }
 
-function onUpdateFont(value){
+function onUpdateFont(value) {
     updateFontFamily(value);
 }
 
-function onMoveLine(diff){
+function onMoveLine(diff) {
     updatePositionY(diff);
 }
 
-function onSwitchLine(){
-    var text  = switchLine() || '';
+function onSwitchLine() {
+    var text = switchLine() || '';
     document.querySelector('[name="text"]').value = text;
 }
 
-function onDelete(){
+function onDelete() {
     var text = deleteLine() || ''
     document.querySelector('[name="text"]').value = text;
 }
@@ -118,7 +118,7 @@ function onSetFillColor(value) {
     updateFillColor(value);
 }
 
-function renderGrid(){
+function renderGrid() {
     var imgs = getImgs();
     var strHTMLs = imgs.map(img => {
         return `<img src=${img} onclick="onSelection('${img}')" />`;
@@ -126,7 +126,7 @@ function renderGrid(){
     document.querySelector('.gallery-grid').innerHTML = strHTMLs.join('');
 }
 
-function onSelection(imgUrl){
+function onSelection(imgUrl) {
     document.querySelector('.gallery-main-container').classList.add('hide');
     cleanAllNavActive();
     setSelectedMemeToEditor(imgUrl);
@@ -140,22 +140,22 @@ function onDownloadMeme() {
     setTimeout(downloadMeme, 500);
 }
 
-function onGallery(){
+function onGallery() {
     document.querySelector('.editor-main-container').classList.add('hide');
-    document.querySelector('[name="text"]').value ='';
+    document.querySelector('[name="text"]').value = '';
     cleanAllNavActive();
     document.querySelector('header nav .gallery').classList.add('active')
     document.querySelector('.gallery-main-container').classList.remove('hide');
 }
 
-function cleanAllNavActive(){
+function cleanAllNavActive() {
     var els = document.querySelectorAll('header nav li');
     els.forEach(el => {
         el.classList.remove('active');
     })
 }
 
-function onAbout(){
+function onAbout() {
     var strHTML = '<h2>This AWESOME meme generator was built by Yael Hazan</h2>'
     document.querySelector('.modal-content').innerHTML = strHTML;
     openModal();
@@ -173,14 +173,14 @@ function toggleMenu() {
     document.body.classList.toggle('menu-open');
 }
 
-function openModal(){
+function openModal() {
     var elModal = document.querySelector('.modal');
 
     elModal.classList.remove('hide');
 }
 
-function closeModal(){
+function closeModal() {
     var elModal = document.querySelector('.modal');
     elModal.classList.add('hide');
-    document.querySelector('.modal-content').innerHTML='';
+    document.querySelector('.modal-content').innerHTML = '';
 }

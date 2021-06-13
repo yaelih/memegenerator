@@ -26,7 +26,7 @@
         
         <div class="gallery-main-container">
             <div class="gallery-container flex column justify-center">
-                <div class="search-container flex justify-center align-center">
+                <div class="search-container columns flex justify-center align-center">
                     <div class="search-input-container flex space-between align-center">
                         <datalist id="keys">
                             <option value="all" label="all" />
@@ -84,7 +84,7 @@
                         <form action="" method="POST" enctype="multipart/form-data" onsubmit="uploadImg(this, event)">
                             <input name="img" id="imgData" type="hidden" />
                             <button class="publish-btn" type="submit"><img src="img/share.png" /> Share</button>
-                            <button class="download-btn" onclick="onDownloadMeme()"><img src="img/download.png" />Download</button>
+                            <button class="download-btn" type="button" onclick="onDownloadMeme()"><img src="img/download.png" />Download</button>
                             <div class="share-container"></div>
                         </form>
                     </div>
